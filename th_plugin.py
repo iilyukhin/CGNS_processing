@@ -23,6 +23,30 @@ def shift_x(x_array, x_0):
         x_shifted.append(x - x_0)
     return x_shifted
 
+#Принимаем массив и координату х,
+#отдаём массив в автомодельных координатах
+
+def phys2ss(array, x):
+    ss_array = []
+    for item in array:
+        ss_array.append(item*(Re_x(1)/x)**(1/2))
+    return ss_array
+
+#аппроксимация значения в заданной точке по двум ближайшим
+def approx(V, x, x_p):
+    i = 0
+    for item in x:
+        if abs(item - x_p) < abs(x[i] - x_p):
+            i = x.index(item)
+    if i == 0:
+        print(V[0])
+        return V[0]
+    k1 = (x_p-x[i])*(x_p-x[i+1])/((x[i-1]-x[i])*(x[i-1]-x[i+1]))
+    k2 = (x_p-x[i-1])*(x_p-x[i+1])/((x[i]-x[i-1])*(x[i]-x[i+1]))
+    k3 = (x_p-x[i])*(x_p-x[i-1])/((x[i+1]-x[i])*(x[i+1]-x[i-1]))
+    result = k1*V[i-1]+k2*V[i]+k3*V[i+1]
+    return result
+
 
 #работает только при условии, что dUdY имеет ровно два нуля на x
 def get_x_separation(x, dU_dY):
