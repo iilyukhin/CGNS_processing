@@ -32,11 +32,7 @@ def get_data(file_name):
             for char in splitted_line:
                 float_s_line.append(float(char))
             clear_data.append(float_s_line)
-            if (var_names[0] == 'CoordinateX'):
-                x = float_s_line[0]
-                if not (x in x_points):
-                    x_points.append(x)
-    return var_names, clear_data, x_points
+    return var_names, clear_data
 
 def sort_arrays(y, f_y):
     presort = []
